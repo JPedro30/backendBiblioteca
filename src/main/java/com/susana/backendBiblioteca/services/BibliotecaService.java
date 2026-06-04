@@ -17,7 +17,7 @@ public class BibliotecaService {
 
     // SELECT ALL
     public List<LibroModel> buscarLibros(){
-        return (List<LibroModel>)bibliotecaRepository.getAllOrderByTituloAsc();
+        return (List<LibroModel>)bibliotecaRepository.findAllByOrderByTituloAsc();
     }
 
     // GUARDAR LIBRO

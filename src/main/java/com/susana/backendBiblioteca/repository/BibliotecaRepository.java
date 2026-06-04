@@ -13,7 +13,7 @@ import java.util.List;
 public interface BibliotecaRepository extends CrudRepository<LibroModel, Long>{
 
     // SELECT ALL
-    List<LibroModel> getAllOrderByTituloAsc();
+    List<LibroModel> findAllByOrderByTituloAsc();
 
     // SELECT DE TITULO APROXIMADO
     List<LibroModel> getByTituloContainingIgnoreCase(String titulo);
