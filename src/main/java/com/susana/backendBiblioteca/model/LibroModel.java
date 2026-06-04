@@ -42,8 +42,18 @@ public class LibroModel {
     private String sinopsis;
 
     private String saga;
+
+    private int valoracion;
     
     // SETTERS Y GETTERS
+
+    public int getValoracion() {
+        return valoracion;
+    }
+
+    public void setValoracion(int valoracion) {
+        this.valoracion = valoracion;
+    }
 
     public String getSaga() {
         return saga;
