@@ -43,15 +43,15 @@ public class LibroModel {
 
     private String saga;
 
-    private int valoracion;
+    private Integer valoracion;
     
     // SETTERS Y GETTERS
 
-    public int getValoracion() {
+    public Integer getValoracion() {
         return valoracion;
     }
 
-    public void setValoracion(int valoracion) {
+    public void setValoracion(Integer valoracion) {
         this.valoracion = valoracion;
     }
 
