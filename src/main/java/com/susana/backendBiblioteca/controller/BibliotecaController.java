@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/libros")
 public class BibliotecaController {
