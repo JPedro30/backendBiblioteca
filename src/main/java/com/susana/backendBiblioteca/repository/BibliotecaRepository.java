@@ -15,33 +15,38 @@ public interface BibliotecaRepository extends CrudRepository<LibroModel, Long>{
     // SELECT ALL
     List<LibroModel> findAllByOrderByTituloAsc();
 
-    // SELECT DE TITULO APROXIMADO
-    List<LibroModel> getByTituloContainingIgnoreCase(String titulo);
-    
-    // SELECT DE TITULO QUE COMIENZA CON LETRA ESPECIFICA
-    List<LibroModel> getByTituloStartsWithIgnoreCase(String letra);
+    // -------------------------------------------------------------------
+    // 1. ORDENAR LOS RESULTADOS DE BÚSQUEDA (Los libros que se muestran)
+    // -------------------------------------------------------------------
 
-    // SELECT DE GENERO EXACTO
-    @Query(value = "SELECT * FROM libro WHERE :genero = ANY(genero)", nativeQuery = true)
+    // Añadimos 'OrderByTituloAsc' al final de los métodos mágicos de Spring
+    List<LibroModel> getByTituloContainingIgnoreCaseOrderByTituloAsc(String titulo);
+    
+    List<LibroModel> getByTituloStartsWithIgnoreCaseOrderByTituloAsc(String letra);
+
+    List<LibroModel> getByAutorOrderByTituloAsc(String autor);
+
+    // En las querys nativas, metemos el ORDER BY directamente en el SQL
+    @Query(value = "SELECT * FROM libro WHERE :genero = ANY(genero) ORDER BY titulo ASC", nativeQuery = true)
     List<LibroModel> getByGenero(@Param("genero") String genero);
 
-    // SELECT DE OWNER EXACTO
-    @Query(value = "SELECT * FROM libro WHERE :owner = ANY(owner)", nativeQuery = true)
+    @Query(value = "SELECT * FROM libro WHERE :owner = ANY(owner) ORDER BY titulo ASC", nativeQuery = true)
     List<LibroModel> getByOwner(@Param("owner") String owner);
 
-    // SELECT DE AUTOR EXACTO
-    List<LibroModel> getByAutor(String autor);
 
-    // SELECT DE TODOS LOS GENEROS
-    @Query(value = "SELECT DISTINCT unnest(genero) FROM libro", nativeQuery = true)
+    // -------------------------------------------------------------------
+    // 2. ORDENAR LAS LISTAS DESPLEGABLES (Autores, dueños y géneros)
+    // -------------------------------------------------------------------
+
+    // Al usar unnest, le ponemos un "alias" (AS nombre) y lo ordenamos por ese alias
+    @Query(value = "SELECT DISTINCT unnest(genero) AS nombre FROM libro ORDER BY nombre ASC", nativeQuery = true)
     List<String> getByGeneroDistinct();
 
-    // SELECT DE TODOS LOS OWNERS
-    @Query(value = "SELECT DISTINCT unnest(owner) FROM libro", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT unnest(owner) AS nombre FROM libro ORDER BY nombre ASC", nativeQuery = true)
     List<String> getByOwnerDistinct();
 
-    // SELECT DE TODOS LOS AUTORES
-    @Query(value = "SELECT DISTINCT l.autor FROM LibroModel l")
+    // En la query de Java (JPQL), simplemente le decimos que ordene por l.autor
+    @Query(value = "SELECT DISTINCT l.autor FROM LibroModel l ORDER BY l.autor ASC")
     List<String> getByAutorDistinct();
 
 }

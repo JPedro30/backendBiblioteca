@@ -49,7 +49,7 @@ public class BibliotecaService {
 
     // AUTOR ESPECIFICO
     public List<LibroModel> buscarAutor(String autor){
-        return bibliotecaRepository.getByAutor(autor);
+        return bibliotecaRepository.getByAutorOrderByTituloAsc(autor);
     }
 
     // TODOS LOS OWNERS
@@ -74,12 +74,12 @@ public class BibliotecaService {
 
     // TITULO ESPECIFICO
     public List<LibroModel> buscarTitulo(String titulo){
-        return bibliotecaRepository.getByTituloContainingIgnoreCase(titulo);
+        return bibliotecaRepository.getByTituloContainingIgnoreCaseOrderByTituloAsc(titulo);
     }
 
     // TITULO QUE COMIENZA POR LETRA ESPECIFICA
     public List<LibroModel> buscarTituloComienzaLetra(String letra){
-        return bibliotecaRepository.getByTituloStartsWithIgnoreCase(letra);
+        return bibliotecaRepository.getByTituloStartsWithIgnoreCaseOrderByTituloAsc(letra);
     }
     
 }
